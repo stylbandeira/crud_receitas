@@ -13,11 +13,14 @@ class ReceitaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
+        $receitas = Receita::paginate(15);
+        return ReceitaResource::collection($receitas);
     }
 
     public function show($id){
+        $receita =  Receita::findOrFail($id);
+        return new ReceitaResource($receita);
     }
 
     /**
@@ -36,9 +39,16 @@ class ReceitaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
+        $receita = new Receita;
+        $receita->nome = $request->input('nome');
+        $receita->descricao = $request->input('descricao');
+        $receita->nivel = $request->input('nivel');
+        $receita->qualidade = $request->input('qualidade');
 
+        if ($receita->save()){
+            return new ReceitaResource($receita);
+        }
     }
 
     /**
