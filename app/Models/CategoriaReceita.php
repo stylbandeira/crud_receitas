@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategoriaReceita extends Model
 {
+    protected $fillable = ['id_receita', 'id_categoria'];
     use HasFactory;
 }

@@ -2,83 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CategoriaReceita as CategoriaReceita;
+use App\Http\Resources\CategoriaReceita as CategoriaReceitaResource;
 use Illuminate\Http\Request;
 
-class CategoriaReceitaController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+class CategoriaReceitaController extends Controller{
+    
+    public function index(){
+        $catReceitas = CategoriaReceita::paginate(15);
+        return CategoriaReceitaResource::collection($catReceitas);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function showCategorias($id_receita){
+        $catReceitas = CategoriaReceita::findOrFail($id_receita);
+        return new CategoriaReceitaResource($catReceitas);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+        $catReceitas = new CategoriaReceita;
+        $catReceitas->id_receita = $request->input('id_receita');
+        $catReceitas->id_categoria = $request->input('id_categoria');
+
+        if ($catReceitas->save()){
+            return new CategoriaReceitaResource($catReceitas);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    public function updateCategoria(Request $request){
+        $catReceitas = CategoriaReceita::findOrFail($request->id_receita);
+        $catReceitas->id_categoria = $request->input('id_categoria');
+        $catReceitas->id_receita = $request->input('id_receita');
+
+        if ($catReceitas->save()){
+            return new CategoriaReceitaResource($catReceitas);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id_receita){
+        $receita = CategoriaReceita::findOrFail($id_receita);
+        if($receita->delete()){
+            return new CategoriaReceitaResource($receita);
+        }
     }
 }

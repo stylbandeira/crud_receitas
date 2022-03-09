@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReceitaController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\CategoriaReceitaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +75,20 @@ Route::delete('categoria/{id}', [CategoriaController::class, 'destroy']);
 
 //------------------------------------------------------------------------------------
 
+//Lista de Categorias das Receitas
+Route::get('categoriasreceitas', [CategoriaReceitaController::class, 'index']);
+
+//Single Categoria
+Route::get('categoriareceita/{id_receita}', [CategoriaReceitaController::class, 'show']);
+
+//Cria uma nova Categoria
+Route::post('categoriasreceitas', [CategoriaReceitaController::class, 'store']);
+
+//Atualiza uma Categoria
+Route::put('categoriasreceita/{id_receita}', [CategoriaReceitaController::class, 'update']);
+
+//Deleta uma Categoria
+Route::delete('categoriasreceita/{id_receita}', [CategoriaController::class, 'destroy']);
 /**
  * ROTAS DAS CATEGORIAS DAS RECEITAS
  * 

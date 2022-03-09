@@ -4,6 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Receita as Receita;
 use App\Http\Resources\Receita as ReceitaResource;
+
+use App\Models\Categoria as Categoria;
+use App\Http\Resources\Categoria as CategoriaResource;
+
+use App\Models\CategoriaReceita as CategoriaReceita;
+use App\Http\Resources\CategoriaReceita as CategoriaReceitaResource;
+
 use Illuminate\Http\Request;
 
 class ReceitaController extends Controller
@@ -41,12 +48,31 @@ class ReceitaController extends Controller
      */
     public function store(Request $request){
         $receita = new Receita;
+
+        //Preenchendo os campos da receita
         $receita->nome = $request->input('nome');
         $receita->descricao = $request->input('descricao');
         $receita->nivel = $request->input('nivel');
         $receita->qualidade = $request->input('qualidade');
 
+        //Preenchendo os campos de categorias
+        $categoriasDaReceita = $request->input('id_categoria');
+
+        
+        //Tenta salvar
         if ($receita->save()){
+            //Para cada categoria...
+            foreach ($categoriasDaReceita as $categoria){
+                $categoriaAtual = new Categoria;
+                //Verifica se a categoria informada existe
+                if($categoriaAtual->find($categoria)){
+                    //Caso exista, preenche os campos de categoria e receita com os respectivos ID's
+                    $categoriasReceita = new CategoriaReceita;
+                    $categoriasReceita->id_receita = $receita->id;
+                    $categoriasReceita->id_categoria = $categoria;
+                    $categoriasReceita->save();
+                }
+            }
             return new ReceitaResource($receita);
         }
     }
