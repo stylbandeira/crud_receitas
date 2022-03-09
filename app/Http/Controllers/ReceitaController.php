@@ -74,9 +74,17 @@ class ReceitaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id){
+        //TALVEZ eu tenha que usar o $id ao invés do $request->id, vamo v
+        $receita =  Receita::findOrFail($request->id);
+        $receita->nome = $request->input('nome');
+        $receita->descricao = $request->input('descricao');
+        $receita->nivel = $request->input('nivel');
+        $receita->qualidade = $request->input('qualidade');
+
+        if ($receita->save()){
+            return new ReceitaResource($receita);
+        }
     }
 
     /**
@@ -85,8 +93,11 @@ class ReceitaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id){
+        $receita = Receita::findOrFail($id);
+        
+        if ($artigo->delete()){
+            return new ArtigoResource($artigo);
+        }
     }
 }

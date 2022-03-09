@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReceitaController
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,18 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//Lista de Receitas
+Route::get('receitas', [ReceitaController::class, 'index']);
+
+//Single Receita
+Route::get('receita/{id}', [ReceitaController::class, 'show']);
+
+//Cria uma nova receita
+Route::post('receita', [ReceitaController::class, 'store']);
+
+//Atualiza uma receita
+Route::put('receita/{id}', [ReceitaController::class, 'update']);
+
+//Deleta uma receita
+Route::delete('receita/{id}', [ReceitaController::class, 'destroy']);
