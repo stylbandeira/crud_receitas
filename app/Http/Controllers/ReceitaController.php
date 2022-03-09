@@ -96,8 +96,8 @@ class ReceitaController extends Controller
     public function destroy($id){
         $receita = Receita::findOrFail($id);
         
-        if ($artigo->delete()){
-            return new ArtigoResource($artigo);
+        if ($receita->delete()){
+            return new ReceitaResource($receita);
         }
     }
 }
