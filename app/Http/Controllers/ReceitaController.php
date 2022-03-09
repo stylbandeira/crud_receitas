@@ -15,8 +15,7 @@ class ReceitaController extends Controller
      */
     public function index()
     {
-        $receitas = Receita::paginate(15);
-        return ReceitaResource::collection($receitas);
+        
     }
 
     /**
@@ -26,7 +25,7 @@ class ReceitaController extends Controller
      */
     public function create()
     {
-        //
+        //cc
     }
 
     /**
