@@ -26,7 +26,7 @@ Route::get('receitas', [ReceitaController::class, 'index']);
 Route::get('receita/{id}', [ReceitaController::class, 'show']);
 
 //Cria uma nova receita
-Route::post('receita', [ReceitaController::class, 'store']);
+Route::post('receitas', [ReceitaController::class, 'store']);
 
 //Atualiza uma receita
 Route::put('receita/{id}', [ReceitaController::class, 'update']);
