@@ -15,7 +15,9 @@ class ReceitaController extends Controller
      */
     public function index()
     {
-        
+    }
+
+    public function show($id){
     }
 
     /**
@@ -36,7 +38,7 @@ class ReceitaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -44,13 +46,7 @@ class ReceitaController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
+     *
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
