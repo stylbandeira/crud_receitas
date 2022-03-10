@@ -8,6 +8,9 @@ use App\Http\Resources\Receita as ReceitaResource;
 use App\Models\Categoria as Categoria;
 use App\Http\Resources\Categoria as CategoriaResource;
 
+use App\Models\FotoDaReceita as Foto;
+use App\Http\Resources\FotoDaReceita as FotoResource;
+
 use App\Models\CategoriaReceita as CategoriaReceita;
 use App\Http\Resources\CategoriaReceita as CategoriaReceitaResource;
 
@@ -57,6 +60,8 @@ class ReceitaController extends Controller
 
         //Preenchendo os campos de categorias
         $categoriasDaReceita = $request->input('id_categoria');
+        //Preenchendo os campos de fotos
+        $fotosDaReceita = $request->input('fotos_da_receita');
 
         
         //Tenta salvar
@@ -72,6 +77,13 @@ class ReceitaController extends Controller
                     $categoriasReceita->id_categoria = $categoria;
                     $categoriasReceita->save();
                 }
+            }
+
+            foreach($fotosDaReceita as $foto){
+                $fotoAtual = new Foto;
+                $fotoAtual->id_receita = $receita->id;
+                $fotoAtual->url_img = $foto;
+                $fotoAtual->save();
             }
             return new ReceitaResource($receita);
         }
