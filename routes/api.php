@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReceitaController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\CategoriaReceitaController;
+use App\Http\Controllers\FotoDaReceitaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,5 +92,27 @@ Route::put('categoriasreceita/{id_receita}', [CategoriaReceitaController::class,
 Route::delete('categoriasreceita/{id_receita}', [CategoriaController::class, 'destroy']);
 /**
  * ROTAS DAS CATEGORIAS DAS RECEITAS
- * 
+ * FIM
+ */
+
+
+ //------------------------------------------------------------------------------------
+
+//Lista de Fotos das Receitas
+Route::get('categoriasreceitas', [FotoDaReceitaController::class, 'index']);
+
+//Single Foto
+Route::get('categoriareceita/{id}', [FotoDaReceitaController::class, 'show']);
+
+//Cria uma nova Foto
+Route::post('categoriasreceitas', [FotoDaReceitaController::class, 'store']);
+
+//Atualiza uma Foto
+Route::put('categoriasreceita/{id}', [FotoDaReceitaController::class, 'update']);
+
+//Deleta uma Foto
+Route::delete('categoriasreceita/{id}', [FotoDaReceitaController::class, 'destroy']);
+/**
+ * ROTAS DAS FOTOS DAS RECEITAS
+ * FIM
  */

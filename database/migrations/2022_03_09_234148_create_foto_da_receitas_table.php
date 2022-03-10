@@ -13,8 +13,6 @@ class CreateFotoDaReceitasTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('foto_da_receitas');
-        Schema::dropIfExists('foto_da_receita');
         Schema::create('foto_da_receita', function (Blueprint $table) {
             $table->id();
             $table->string('url_img');
