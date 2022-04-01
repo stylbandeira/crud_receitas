@@ -6,7 +6,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class Receita extends JsonResource{
     public function toArray($request){
-        // return parent::toArray($request);
         return [
             'id'        =>  $this->id,
             'nome'      =>  $this->nome,
