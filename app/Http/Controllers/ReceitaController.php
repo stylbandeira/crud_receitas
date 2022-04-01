@@ -31,8 +31,7 @@ class ReceitaController extends Controller
 
     public function show($id)
     {
-        $receita =  Receita::first($id);
-        return new ReceitaResource($receita);
+        return Receita::find($id);
     }
 
     /**
