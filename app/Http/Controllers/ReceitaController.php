@@ -31,6 +31,7 @@ class ReceitaController extends Controller
 
     public function show($id)
     {
+        //Queria fazer um bind com (Receita $receita) e dar um return em $receita, mas não consigo, porque?
         return Receita::find($id);
     }
 
@@ -120,6 +121,7 @@ class ReceitaController extends Controller
         if ($receita->save()){
             return new ReceitaResource($receita);
         }
+        return 'Não deu certo';
     }
 
     /**
