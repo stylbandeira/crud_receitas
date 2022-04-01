@@ -10,8 +10,8 @@ class CategoriaController extends Controller{
 
     public function index()
     {
-        $categorias = Categoria::paginate(15);
-        return CategoriaResource::collection($categorias);
+        $categorias = Categoria::all();
+        return $categorias;
     }
 
     public function show($id)
