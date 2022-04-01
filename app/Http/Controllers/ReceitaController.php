@@ -84,6 +84,7 @@ class ReceitaController extends Controller
             }
             return new ReceitaResource($receita);
         }
+        //Precisa de um Return aqui
     }
 
     /**
