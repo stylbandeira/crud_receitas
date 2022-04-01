@@ -7,8 +7,8 @@ class Categoria extends JsonResource
 {
     public function toArray($request){
         return [
-            'id'    =>  $this->id,
-            'nome'  =>  $this->nome
+            'id' => $this->id,
+            'nome' => $this->nome
         ];
     }
 }
