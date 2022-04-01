@@ -25,8 +25,8 @@ class ReceitaController extends Controller
      */
     public function index()
     {
-        $receitas = Receita::paginate(15);
-        return ReceitaResource::collection($receitas);
+        $receitas = Receita::all();
+        return $receitas;
     }
 
     public function show($id)
