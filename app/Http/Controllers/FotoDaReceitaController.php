@@ -16,7 +16,7 @@ class FotoDaReceitaController extends Controller{
 
     public function show($id)
     {
-        $foto = FotoDaReceita::findOrFail($id);
+        $foto = FotoDaReceita::first($id);
         return new FotoDaReceitaResource($foto);
     }
 
