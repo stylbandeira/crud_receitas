@@ -16,7 +16,7 @@ class CategoriaController extends Controller{
 
     public function show($id)
     {
-        $categoria = Categoria::findOrFail($id);
+        $categoria = Categoria::first($id);
         return CategoriaResource($categoria);
     }
 
