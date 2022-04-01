@@ -110,18 +110,12 @@ class ReceitaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Receita $receita)
     {
-        $receita =  Receita::findOrFail($request->id);
-        $receita->nome = $request->input('nome');
-        $receita->descricao = $request->input('descricao');
-        $receita->nivel = $request->input('nivel');
-        $receita->qualidade = $request->input('qualidade');
-
-        if ($receita->save()){
-            return new ReceitaResource($receita);
+        if($receita->update($request->all())){
+            return $receita;
         }
-        return 'Não deu certo';
+        return 'Deu errado';
     }
 
     /**
