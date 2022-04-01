@@ -54,38 +54,40 @@ class ReceitaController extends Controller
      */
     public function store(Request $request)
     {
-        $receita = new Receita;
+        $receita = Receita::create($request->all());
+        return $receita;
+        // $receita = new Receita;
 
-        $receita->nome = $request->input('nome');
-        $receita->descricao = $request->input('descricao');
-        $receita->nivel = $request->input('nivel');
-        $receita->qualidade = $request->input('qualidade');
+        // $receita->nome = $request->input('nome');
+        // $receita->descricao = $request->input('descricao');
+        // $receita->nivel = $request->input('nivel');
+        // $receita->qualidade = $request->input('qualidade');
 
-        $categoriasDaReceita = $request->input('id_categoria');
+        // $categoriasDaReceita = $request->input('id_categoria');
 
-        $fotosDaReceita = $request->input('fotos_da_receita');
+        // $fotosDaReceita = $request->input('fotos_da_receita');
 
-        if ($receita->save()){
-            foreach ($categoriasDaReceita as $categoria){
-                $categoriaAtual = new Categoria;
+        // if ($receita->save()){
+        //     foreach ($categoriasDaReceita as $categoria){
+        //         $categoriaAtual = new Categoria;
 
-                if($categoriaAtual->find($categoria)){
-                    $categoriasReceita = new CategoriaReceita;
-                    $categoriasReceita->id_receita = $receita->id;
-                    $categoriasReceita->id_categoria = $categoria;
-                    $categoriasReceita->save();
-                }
-            }
+        //         if($categoriaAtual->find($categoria)){
+        //             $categoriasReceita = new CategoriaReceita;
+        //             $categoriasReceita->id_receita = $receita->id;
+        //             $categoriasReceita->id_categoria = $categoria;
+        //             $categoriasReceita->save();
+        //         }
+        //     }
 
-            foreach($fotosDaReceita as $foto){
-                $fotoAtual = new Foto;
-                $fotoAtual->id_receita = $receita->id;
-                $fotoAtual->url_img = $foto;
-                $fotoAtual->save();
-            }
-            return new ReceitaResource($receita);
-        }
-        return 'Erro ao salvar';
+        //     foreach($fotosDaReceita as $foto){
+        //         $fotoAtual = new Foto;
+        //         $fotoAtual->id_receita = $receita->id;
+        //         $fotoAtual->url_img = $foto;
+        //         $fotoAtual->save();
+        //     }
+        //     return new ReceitaResource($receita);
+        // }
+        // return 'Erro ao salvar';
     }
 
     /**
