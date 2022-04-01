@@ -29,10 +29,11 @@ class ReceitaController extends Controller
         return $receitas;
     }
 
-    public function show($id)
+    public function show(Receita $receita)
     {
         //Queria fazer um bind com (Receita $receita) e dar um return em $receita, mas não consigo, porque?
-        return Receita::find($id);
+        // return Receita::find($id);
+        return $receita;
     }
 
     /**

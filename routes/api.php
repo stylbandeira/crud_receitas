@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('receitas', [ReceitaController::class, 'index']);
-Route::get('receita/{id}', [ReceitaController::class, 'show']);
+Route::get('receita/{receita}', [ReceitaController::class, 'show']);
 Route::post('receitas', [ReceitaController::class, 'store']);
 Route::put('receita/{receita}', [ReceitaController::class, 'update']);
 Route::delete('receita/{id}', [ReceitaController::class, 'destroy']);
