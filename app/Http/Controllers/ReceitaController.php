@@ -23,12 +23,14 @@ class ReceitaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){
+    public function index()
+    {
         $receitas = Receita::paginate(15);
         return ReceitaResource::collection($receitas);
     }
 
-    public function show($id){
+    public function show($id)
+    {
         $receita =  Receita::findOrFail($id);
         return new ReceitaResource($receita);
     }
@@ -40,7 +42,7 @@ class ReceitaController extends Controller
      */
     public function create()
     {
-        //cc
+        //
     }
 
     /**
@@ -49,29 +51,24 @@ class ReceitaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $receita = new Receita;
 
-        //Preenchendo os campos da receita
         $receita->nome = $request->input('nome');
         $receita->descricao = $request->input('descricao');
         $receita->nivel = $request->input('nivel');
         $receita->qualidade = $request->input('qualidade');
 
-        //Preenchendo os campos de categorias
         $categoriasDaReceita = $request->input('id_categoria');
-        //Preenchendo os campos de fotos
+
         $fotosDaReceita = $request->input('fotos_da_receita');
 
-        
-        //Tenta salvar
         if ($receita->save()){
-            //Para cada categoria...
             foreach ($categoriasDaReceita as $categoria){
                 $categoriaAtual = new Categoria;
-                //Verifica se a categoria informada existe
+
                 if($categoriaAtual->find($categoria)){
-                    //Caso exista, preenche os campos de categoria e receita com os respectivos ID's
                     $categoriasReceita = new CategoriaReceita;
                     $categoriasReceita->id_receita = $receita->id;
                     $categoriasReceita->id_categoria = $categoria;
@@ -112,8 +109,8 @@ class ReceitaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id){
-        //TALVEZ eu tenha que usar o $id ao invés do $request->id, vamo v
+    public function update(Request $request, $id)
+    {
         $receita =  Receita::findOrFail($request->id);
         $receita->nome = $request->input('nome');
         $receita->descricao = $request->input('descricao');
@@ -131,9 +128,10 @@ class ReceitaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id){
+    public function destroy($id)
+    {
         $receita = Receita::findOrFail($id);
-        
+
         if ($receita->delete()){
             return new ReceitaResource($receita);
         }
