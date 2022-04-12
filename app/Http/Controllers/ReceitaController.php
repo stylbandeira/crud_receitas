@@ -25,8 +25,18 @@ class ReceitaController extends Controller
      */
     public function index()
     {
-        $receitas = Receita::all();
-        return $receitas;
+        $receitas = Receita::get();
+
+        if (!$receitas) {
+            return response([
+                'message' => 'Deu certo boy',
+            ], 404);
+        }
+
+        return response([
+            'message' => 'Receitas encontradas',
+            'receitas' => $receitas,
+        ], 200);
     }
 
     public function show(Receita $receita)

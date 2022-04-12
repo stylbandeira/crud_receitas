@@ -17,7 +17,7 @@ class CategoriaController extends Controller{
     public function show($id)
     {
         $categoria = Categoria::first($id);
-        return CategoriaResource($categoria);
+        return new CategoriaResource($categoria);
     }
 
     public function store(Request $request)
@@ -35,16 +35,29 @@ class CategoriaController extends Controller{
         $categoria = Categoria::findOrFail($request->id);
         $categoria->nome = $request->input('nome');
 
-        if($categoria->save()){
+        if ($categoria->save()) {
             return new CategoriaResource($categoria);
         }
     }
 
-    public function destroy($id)
+    public function destroy($category_id)
     {
-        $categoria = Categoria::findOrFail($id);
-        if($categoria->delete()){
-            return new ArtigoResource($artigo);
+        $categoria = Categoria::find($category_id);
+
+        if (!$categoria) {
+            return response(
+                [
+                'message' => 'Deu ruim boy',
+                ],
+                404
+            );
         }
+
+        $categoria->delete();
+
+        return response(
+            [
+            'message' => 'Deu bom',
+        ], 200);
     }
 }
