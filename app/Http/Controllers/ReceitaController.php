@@ -29,7 +29,7 @@ class ReceitaController extends Controller
 
         if (!$receitas) {
             return response([
-                'message' => 'Deu certo boy',
+                'message' => 'Nenhuma receita encontrada',
             ], 404);
         }
 
@@ -58,7 +58,7 @@ class ReceitaController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created Recipe in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -141,12 +141,12 @@ class ReceitaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $recipe_id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($recipe_id)
     {
-        $receita = Receita::find($id);
+        $receita = Receita::find($recipe_id);
 
         if (!$receita){
             return response([

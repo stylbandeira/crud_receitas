@@ -31,10 +31,10 @@ Route::delete('receitas/{id}', [ReceitaController::class, 'destroy']);
 // Route::apiResource('receita', 'App\Http\Controllers\ReceitaController');
 
 Route::get('categorias', [CategoriaController::class, 'index']);
-Route::get('categoria/{id}', [CategoriaController::class, 'show']);
+Route::get('categorias/{id}', [CategoriaController::class, 'show']);
 Route::post('categorias', [CategoriaController::class, 'store']);
-Route::put('categoria/{id}', [CategoriaController::class, 'update']);
-Route::delete('categoria/{id}', [CategoriaController::class, 'destroy']);
+Route::put('categorias/{id}', [CategoriaController::class, 'update']);
+Route::delete('categorias/{id}', [CategoriaController::class, 'destroy']);
 
 Route::get('categoriasreceitas', [CategoriaReceitaController::class, 'index']);
 Route::get('categoriareceita/{id_receita}', [CategoriaReceitaController::class, 'show']);
