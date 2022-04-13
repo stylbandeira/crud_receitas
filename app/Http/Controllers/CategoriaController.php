@@ -65,6 +65,7 @@ class CategoriaController extends Controller{
         if(isset($th)){
             return response([
                 'message' => 'Não inserido',
+                'error' => $th
             ],303);
         }
         return response([

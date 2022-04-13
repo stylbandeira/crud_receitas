@@ -19,13 +19,13 @@ use Illuminate\Http\Request;
 class ReceitaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of recipes.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $receitas = Receita::get();
+        $receitas = Receita::with('fotos')->get();
 
         if (!$receitas) {
             return response([
@@ -47,13 +47,14 @@ class ReceitaController extends Controller
      */
     public function show($id)
     {
-        if(!Receita::find($id)){
+        $receita = Receita::with('fotos')->find($id);
+        if(!$receita){
             return response([
                 'message' => 'A receita não existe',
             ],404);
         }
         return response([
-            'receita' => Receita::find($id),
+            'receita' => $receita,
         ],202);
     }
 
@@ -74,7 +75,6 @@ class ReceitaController extends Controller
         if (isset($error)) {
             return response([
                 'message' => 'Não foi possível inserir a receita',
-                'error' => $error
             ], 303);
         }
 
@@ -82,38 +82,6 @@ class ReceitaController extends Controller
             'message' => 'Receita criada com sucesso!',
             'receita' => $receita,
         ], 200);
-        // $receita = new Receita;
-
-        // $receita->nome = $request->input('nome');
-        // $receita->descricao = $request->input('descricao');
-        // $receita->nivel = $request->input('nivel');
-        // $receita->qualidade = $request->input('qualidade');
-
-        // $categoriasDaReceita = $request->input('id_categoria');
-
-        // $fotosDaReceita = $request->input('fotos_da_receita');
-
-        // if ($receita->save()){
-        //     foreach ($categoriasDaReceita as $categoria){
-        //         $categoriaAtual = new Categoria;
-
-        //         if($categoriaAtual->find($categoria)){
-        //             $categoriasReceita = new CategoriaReceita;
-        //             $categoriasReceita->id_receita = $receita->id;
-        //             $categoriasReceita->id_categoria = $categoria;
-        //             $categoriasReceita->save();
-        //         }
-        //     }
-
-        //     foreach($fotosDaReceita as $foto){
-        //         $fotoAtual = new Foto;
-        //         $fotoAtual->id_receita = $receita->id;
-        //         $fotoAtual->url_img = $foto;
-        //         $fotoAtual->save();
-        //     }
-        //     return new ReceitaResource($receita);
-        // }
-        // return 'Erro ao salvar';
     }
 
     /**

@@ -42,6 +42,12 @@ Route::post('categoriasreceitas', [CategoriaReceitaController::class, 'store']);
 Route::put('categoriasreceita/{id_receita}', [CategoriaReceitaController::class, 'update']);
 Route::delete('categoriasreceita/{id_receita}', [CategoriaController::class, 'destroy']);
 
+Route::get('imagens', [FotoDaReceitaController::class, 'index']);
+Route::get('imagens/{id}', [FotoDaReceitaController::class, 'show']);
+Route::post('imagens', [FotoDaReceitaController::class, 'store']);
+Route::put('imagens/{id}', [FotoDaReceitaController::class, 'update']);
+Route::delete('imagens/{id}', [FotoDaReceitaController::class, 'destroy']);
+
 
 //Ok eu não to lembrando porque eu fiz essas coisas, então eu vou comentar...
 // Route::get('categoriasreceitas', [FotoDaReceitaController::class, 'index']);
