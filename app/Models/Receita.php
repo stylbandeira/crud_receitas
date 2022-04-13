@@ -9,4 +9,5 @@ class Receita extends Model
 {
     use HasFactory;
     protected $fillable = ['descricao', 'nivel', 'qualidade', 'nome'];
+    protected $table = 'receitas';
 }

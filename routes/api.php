@@ -23,10 +23,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('receitas', [ReceitaController::class, 'index']);
-Route::get('receita/{receita}', [ReceitaController::class, 'show']);
+Route::get('receitas/{receita}', [ReceitaController::class, 'show']);
 Route::post('receitas', [ReceitaController::class, 'store']);
-Route::put('receita/{receita}', [ReceitaController::class, 'update']);
-Route::delete('receita/{id}', [ReceitaController::class, 'destroy']);
+Route::put('receitas/{receita}', [ReceitaController::class, 'update']);
+Route::delete('receitas/{id}', [ReceitaController::class, 'destroy']);
+
+// Route::apiResource('receita', 'App\Http\Controllers\ReceitaController');
 
 Route::get('categorias', [CategoriaController::class, 'index']);
 Route::get('categoria/{id}', [CategoriaController::class, 'show']);

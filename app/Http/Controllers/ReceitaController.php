@@ -39,21 +39,22 @@ class ReceitaController extends Controller
         ], 200);
     }
 
-    public function show(Receita $receita)
-    {
-        //Queria fazer um bind com (Receita $receita) e dar um return em $receita, mas não consigo, porque?
-        // return Receita::find($id);
-        return $receita;
-    }
-
     /**
-     * Show the form for creating a new resource.
+     * Show a existing recipe.
      *
+     * @param  Integer
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function show($id)
     {
-        //
+        if(!Receita::find($id)){
+            return response([
+                'message' => 'A receita não existe',
+            ],404);
+        }
+        return response([
+            'receita' => Receita::find($id),
+        ],202);
     }
 
     /**
@@ -64,8 +65,23 @@ class ReceitaController extends Controller
      */
     public function store(Request $request)
     {
-        $receita = Receita::create($request->all());
-        return $receita;
+        try {
+            $receita = Receita::create($request->all());
+        } catch (\Throwable $th) {
+            $error = $th;
+        }
+
+        if (isset($error)) {
+            return response([
+                'message' => 'Não foi possível inserir a receita',
+                'error' => $error
+            ], 303);
+        }
+
+        return response([
+            'message' => 'Receita criada com sucesso!',
+            'receita' => $receita,
+        ], 200);
         // $receita = new Receita;
 
         // $receita->nome = $request->input('nome');
@@ -101,34 +117,25 @@ class ReceitaController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     *
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Integer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Receita $receita)
+    public function update(Request $request, $id)
     {
-        if($receita->update($request->all())){
-            return $receita;
+        $newRecipe = Receita::find($id);
+        if(!$newRecipe){
+            return response([
+                'message' => 'Receita não encontrada',
+            ]);
         }
-        return 'Deu errado';
+        $newRecipe->update($request->all());
+        return response([
+            'message' => 'Deu certo',
+            'receita' => $newRecipe,
+        ]);
     }
 
     /**
@@ -139,10 +146,16 @@ class ReceitaController extends Controller
      */
     public function destroy($id)
     {
-        $receita = Receita::findOrFail($id);
+        $receita = Receita::find($id);
 
-        if ($receita->delete()){
-            return new ReceitaResource($receita);
+        if (!$receita){
+            return response([
+                'message' => 'Receita não existe'
+            ], 404);
         }
+        $receita->delete();
+        return response([
+            'message' => 'Receita deletada',
+        ], 202);
     }
 }
