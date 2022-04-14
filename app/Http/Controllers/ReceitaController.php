@@ -25,7 +25,7 @@ class ReceitaController extends Controller
      */
     public function index()
     {
-        $receitas = Receita::with('fotos', 'categorias')->get();
+        $receitas = Receita::with('fotos', 'categorias', 'etapas')->get();
 
         if (!$receitas) {
             return response([
@@ -47,7 +47,7 @@ class ReceitaController extends Controller
      */
     public function show($id)
     {
-        $receita = Receita::with('fotos', 'categorias')->find($id);
+        $receita = Receita::with('fotos', 'categorias', 'etapas')->find($id);
         if(!$receita){
             return response([
                 'message' => 'A receita não existe',

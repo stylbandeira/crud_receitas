@@ -19,4 +19,8 @@ class Receita extends Model
         return $this->belongsToMany('App\Models\Categoria', 'categoria_receitas', 'id_receita', 'id_categoria');
         //(Model da tabela secundária, o nome da tabela auxiliar, o nome da chave primária daqui, o nome da chave primária da tabela secundária)
     }
+
+    public function etapas(){
+        return $this->hasMany('App\Models\Etapa', 'receita_id', 'id');
+    }
 }

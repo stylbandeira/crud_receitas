@@ -6,6 +6,7 @@ use App\Http\Controllers\ReceitaController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\CategoriaReceitaController;
 use App\Http\Controllers\FotoDaReceitaController;
+use App\Http\Controllers\EtapaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,13 @@ Route::get('imagens/{id}', [FotoDaReceitaController::class, 'show']);
 Route::post('imagens', [FotoDaReceitaController::class, 'store']);
 Route::put('imagens/{id}', [FotoDaReceitaController::class, 'update']);
 Route::delete('imagens/{id}', [FotoDaReceitaController::class, 'destroy']);
+
+Route::group(['prefix' => 'etapas'], function (){
+    Route::get('/{id}', [EtapaController::class, 'show']);
+    Route::post('', [EtapaController::class, 'store']);
+    Route::put('/{id}', [EtapaController::class, 'update']);
+    Route::delete('/{id}', [EtapaController::class, 'destroy']);
+});
 
 
 //Ok eu não to lembrando porque eu fiz essas coisas, então eu vou comentar...
