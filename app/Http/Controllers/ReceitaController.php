@@ -60,27 +60,21 @@ class ReceitaController extends Controller
 
     /**
      * Store a newly created Recipe in storage.
+     * Please use Accept - application/json
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        try {
-            $receita = Receita::create($request->all());
-        } catch (\Throwable $th) {
-            $error = $th;
-        }
+        $receita = new Receita();
+        $request->validate($receita->rules(), $receita->feedback());
 
-        if (isset($error)) {
-            return response([
-                'message' => 'Não foi possível inserir a receita',
-            ], 303);
-        }
+        $receipt = $receita->create($request->all());
 
         return response([
             'message' => 'Receita criada com sucesso!',
-            'receita' => $receita,
+            'receita' => $receipt,
         ], 200);
     }
 
