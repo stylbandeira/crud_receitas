@@ -15,7 +15,7 @@ class CategoriaController extends Controller{
      */
     public function index()
     {
-        $categorias = Categoria::all();
+        $categorias = Categoria::get();
         if (!$categorias) {
             return response([
                 'message' => 'Nenhuma categoria encontrada',
@@ -54,8 +54,6 @@ class CategoriaController extends Controller{
      */
     public function store(Request $request)
     {
-
-
         try {
             $categoria = Categoria::create($request->all());
         } catch (\Throwable $th) {
