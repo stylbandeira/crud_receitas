@@ -70,11 +70,11 @@ class ReceitaController extends Controller
         $receita = new Receita();
         $request->validate($receita->rules(), $receita->feedback());
 
-        $receipt = $receita->create($request->all());
+        // $receipt = $receita->create($request->all());
 
         return response([
             'message' => 'Receita criada com sucesso!',
-            'receita' => $receipt,
+            'receita' => $receita->create($request->all()),
         ], 200);
     }
 
@@ -87,17 +87,20 @@ class ReceitaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $receita = new Receita();
+        $request->validate($receita->rules(), $receita->feedback());
+
         $newRecipe = Receita::find($id);
         if(!$newRecipe){
             return response([
                 'message' => 'Receita não encontrada',
-            ]);
+            ], 404);
         }
         $newRecipe->update($request->all());
         return response([
-            'message' => 'Deu certo',
+            'message' => 'Receita atualizada',
             'receita' => $newRecipe,
-        ]);
+        ], 200);
     }
 
     /**
